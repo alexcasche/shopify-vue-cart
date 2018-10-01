@@ -1,0 +1,392 @@
+<style>
+  {% if section.settings.cover_image %}
+    #VideoSection--{{ section.id }} .video-section__cover-background {
+      background-image: url({{ section.settings.cover_image | img_url: '1024x' | format: 'jpg' }});
+      background-position: {{ section.settings.cover_image_position }};
+    }
+  {% endif %}
+</style>
+
+{% if section.settings.show_overlay %}
+  <style>
+    #VideoSection--{{ section.id }} .video-section__cover-text {
+      color: {{ section.settings.overlay_text }};
+    }
+
+    #VideoSection--{{ section.id }} .video-section__load-player-button-triangle {
+      border-left-color: {{ section.settings.overlay_text }};
+    }
+
+    #VideoSection--{{ section.id }} .video-section__load-player-button.animated .video-section__load-player-button-circle,
+    #VideoSection--{{ section.id }} .video-section__load-player-button-circle {
+      border-color: {{ section.settings.overlay_text }};
+    }
+
+    #VideoSection--{{ section.id }} .video-section__cover-overlay {
+      background-color: {{ section.settings.overlay_color }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    }
+  </style>
+{% endif %}
+
+<div class="page-width">
+  <div id="VideoSection--{{ section.id }}" class="video-section video-section--{{ section.settings.cover_image_height }}" data-section-id="{{ section.id }}" data-section-type="video" data-video-id="{{ section.settings.video_url.id }}" data-video-type="{{ section.settings.video_url.type }}">
+    <div class="video-section__body-overlay"></div>
+    <div class="video-section__modal">
+      <div class="video-wrapper">
+        <button class="video-section__player-close">
+          <span class="visually-hidden">{{ 'video.close' | t }}</span>
+          {% include 'icon-close' %}
+        </button>
+        <div class="video-section__player"></div>
+      </div>
+    </div>
+    <div class="video-section__cover">
+      <div class="video-section__cover-background">
+        {% if section.settings.cover_image == blank %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+      <div class="video-section__cover-overlay"></div>
+      <div class="video-section__cover-content">
+        <button class="video-section__load-player-button {% if section.settings.button_label == blank %}video-section__load-player-button--large{% endif %}">
+          <span class="visually-hidden">{{ 'video.play' | t }}</span>
+          <div class="video-section__load-player-icon">
+            <div class="video-section__load-player-button-circle"></div>
+            <div class="video-section__load-player-button-triangle"></div>
+          </div>
+          {% if section.settings.button_label != blank %}
+            <div class="h1 video-section__load-player-text">{{ section.settings.button_label }}</div>
+          {% endif %}
+        </button>
+        <p class="video-section__error"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Video",
+    "en": "Video",
+    "es": "Video",
+    "fr": "Vidéo",
+    "it": "Video",
+    "ja": "動画",
+    "pt-BR": "Vídeo"
+  },
+  "class": "index-section index-section--video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": {
+        "de": "Button-Etikett",
+        "en": "Button label",
+        "es": "Etiqueta de botón",
+        "fr": "Texte du bouton",
+        "it": "Etichetta pulsante",
+        "ja": "ボタンラベル",
+        "pt-BR": "Etiqueta do botão"
+      }
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": {
+        "de": "Video-Link",
+        "en": "Video link",
+        "es": "Enlace de video",
+        "fr": "Lien de la vidéo",
+        "it": "Link video",
+        "ja": "ビデオリンク",
+        "pt-BR": "Link do vídeo"
+      },
+      "accept": [
+        "youtube",
+        "vimeo"
+      ]
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Cover",
+        "en": "Cover",
+        "es": "Portada",
+        "fr": "Couverture",
+        "it": "Copertina",
+        "ja": "カバー",
+        "pt-BR": "Capa"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      }
+    },
+    {
+      "type": "select",
+      "id": "cover_image_position",
+      "label": {
+        "de": "Foto-Position",
+        "en": "Image position",
+        "es": "Posición de la imagen",
+        "fr": "Position de l'image",
+        "it": "Posizione Immagine",
+        "ja": "画像の位置",
+        "pt-BR": "Posição da imagem"
+      },
+      "default": "center center",
+      "options": [
+        {
+          "label": {
+            "de": "Oben links",
+            "en": "Top left",
+            "es": "Superior izquierda",
+            "fr": "En haut à gauche",
+            "it": "In alto a sinistra",
+            "ja": "左上",
+            "pt-BR": "Superior esquerdo"
+          },
+          "value": "top left"
+        },
+        {
+          "label": {
+            "de": "Oben Mitte",
+            "en": "Top center",
+            "es": "Superior al centro",
+            "fr": "En haut au centre",
+            "it": "In alto al centro",
+            "ja": "中央上",
+            "pt-BR": "Superior centro"
+          },
+          "value": "top center"
+        },
+        {
+          "label": {
+            "de": "Oben rechts",
+            "en": "Top right",
+            "es": "Superior derecha",
+            "fr": "En haut à droite",
+            "it": "In alto a destra",
+            "ja": "右上",
+            "pt-BR": "Superior direito"
+          },
+          "value": "top right"
+        },
+        {
+          "label": {
+            "de": "Mitte links",
+            "en": "Middle left",
+            "es": "Al medio a la izquierda",
+            "fr": "Au milieu à gauche",
+            "it": "In mezzo a sinistra",
+            "ja": "中央左",
+            "pt-BR": "Meio esquerdo"
+          },
+          "value": "center left"
+        },
+        {
+          "label": {
+            "de": "Mitte mittig",
+            "en": "Middle center",
+            "es": "Al medio al centro",
+            "fr": "Centrée au milieu",
+            "it": "In mezzo al centro",
+            "ja": "中央中",
+            "pt-BR": "Meio centro"
+          },
+          "value": "center center"
+        },
+        {
+          "label": {
+            "de": "Mitte rechts",
+            "en": "Middle right",
+            "es": "Al medio a la derecha",
+            "fr": "Au milieu à droite",
+            "it": "In centro a destra",
+            "ja": "中央右",
+            "pt-BR": "Meio direito"
+          },
+          "value": "center right"
+        },
+        {
+          "label": {
+            "de": "Unten links",
+            "en": "Bottom left",
+            "es": "Inferior izquierda",
+            "fr": "En bas à gauche",
+            "it": "In basso a sinistra",
+            "ja": "左下",
+            "pt-BR": "Inferior esquerdo"
+          },
+          "value": "bottom left"
+        },
+        {
+          "label": {
+            "de": "Unten mittig",
+            "en": "Bottom center",
+            "es": "Inferior al centro",
+            "fr": "En bas au centre",
+            "it": "In basso al centro",
+            "ja": "中央下",
+            "pt-BR": "Inferior centro"
+          },
+          "value": "bottom center"
+        },
+        {
+          "label": {
+            "de": "Unten rechts",
+            "en": "Bottom right",
+            "es": "Inferior derecha",
+            "fr": "En bas à droite",
+            "it": "In basso a destra",
+            "ja": "右下",
+            "pt-BR": "Inferior direito"
+          },
+          "value": "bottom right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "cover_image_height",
+      "label": {
+        "de": "Bildhöhe",
+        "en": "Image height",
+        "es": "Altura de imagen",
+        "fr": "Hauteur de l'image",
+        "it": "Altezza immagine",
+        "ja": "画像の高さ",
+        "pt-BR": "Altura da imagem"
+      },
+      "default": "short",
+      "options": [
+        {
+          "value": "short",
+          "label": {
+            "de": "Niedrig",
+            "en": "Short",
+            "es": "Baja",
+            "fr": "Petite",
+            "it": "Bassa",
+            "ja": "低い",
+            "pt-BR": "Pequena"
+          }
+        },
+        {
+          "value": "tall",
+          "label": {
+            "de": "Hoch",
+            "en": "Tall",
+            "es": "Alta",
+            "fr": "Grande",
+            "it": "Alta",
+            "ja": "高い",
+            "pt-BR": "Alta"
+          }
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": {
+        "de": "Overlay",
+        "en": "Overlay",
+        "es": "Superposición",
+        "fr": "Superposition",
+        "it": "Sovrapposizione",
+        "ja": "オーバーレイ",
+        "pt-BR": "Sobreposição"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": {
+        "de": "Überlagerung anzeigen",
+        "en": "Show overlay",
+        "es": "Mostrar superposición",
+        "fr": "Afficher la superposition",
+        "it": "Mostra sovrapposizione",
+        "ja": "オーバーレイを表示する",
+        "pt-BR": "Exibir sobreposição"
+      },
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": {
+        "de": "Overlay",
+        "en": "Overlay",
+        "es": "Superposición",
+        "fr": "Superposition",
+        "it": "Sovrapposizione",
+        "ja": "オーバーレイ",
+        "pt-BR": "Sobreposição"
+      },
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": {
+        "de": "%",
+        "en": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "ja": "%",
+        "pt-BR": "%"
+      },
+      "label": {
+        "de": "Opazität",
+        "en": "Opacity",
+        "es": "Opacidad",
+        "fr": "Opacité",
+        "it": "Opacità",
+        "ja": "不透過率",
+        "pt-BR": "Opacidade"
+      },
+      "default": 30
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Video",
+        "en": "Video",
+        "es": "Video",
+        "fr": "Vidéo",
+        "it": "Video",
+        "ja": "動画",
+        "pt-BR": "Vídeo"
+      },
+      "category": {
+        "de": "Video",
+        "en": "Video",
+        "es": "Video",
+        "fr": "Vidéo",
+        "it": "Video",
+        "ja": "動画",
+        "pt-BR": "Vídeo"
+      }
+    }
+  ]
+}
+{% endschema %}

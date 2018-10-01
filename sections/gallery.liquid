@@ -1,0 +1,203 @@
+<div class="page-width">
+  <div class="flex column-flex">
+    {% for block in section.blocks %}
+      <div class="flex__item text-center" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          <noscript>
+            <div class="column-flex__image column-flex__image--{{ section.settings.gallery_height }}" style="background-image: url({{ block.settings.image | img_url: '600x' }}); background-position: {{ block.settings.image_align }};"></div>
+          </noscript>
+          <div class="column-flex__image column-flex__image--{{ section.settings.gallery_height }} lazyload"
+            style="background-position: {{ block.settings.image_align }};background-image: url('{{ block.settings.image | img_url: '300x300' }});"
+            data-bgset="{% include 'bgset', image: block.settings.image %}"
+            data-sizes="auto"
+            data-parent-fit="cover">
+          </div>
+        {% else %}
+          <div class="column-flex__image">
+            <div class="placeholder-background">
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Galerie",
+    "en": "Gallery",
+    "es": "Galería",
+    "fr": "Galerie",
+    "it": "Galleria",
+    "ja": "ギャラリー",
+    "pt-BR": "Galeria"
+  },
+  "class": "index-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "select",
+      "id": "gallery_height",
+      "label": {
+        "de": "Galeriehöhe",
+        "en": "Gallery height",
+        "es": "Altura de la galería",
+        "fr": "Hauteur de la galerie",
+        "it": "Altezza galleria",
+        "ja": "ギャラリーの高さ",
+        "pt-BR": "Altura da galeria"
+      },
+      "default": "short",
+      "options": [
+        {
+          "value": "short",
+          "label": {
+            "de": "Niedrig",
+            "en": "Short",
+            "es": "Baja",
+            "fr": "Court",
+            "it": "Bassa",
+            "ja": "低い",
+            "pt-BR": "Pequena"
+          }
+        },
+        {
+          "value": "tall",
+          "label": {
+            "de": "Hoch",
+            "en": "Tall",
+            "es": "Alta",
+            "fr": "Grand",
+            "it": "Alta",
+            "ja": "高い",
+            "pt-BR": "Alta"
+          }
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_block",
+      "name": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "de": "Foto",
+            "en": "Image",
+            "es": "Imagen",
+            "fr": "Image",
+            "it": "Immagine",
+            "ja": "画像",
+            "pt-BR": "Imagem"
+          }
+        },
+        {
+          "type": "radio",
+          "id": "image_align",
+          "label": {
+            "de": "Fotoausrichtung",
+            "en": "Image alignment",
+            "es": "Alineación de imagen",
+            "fr": "Alignement de l'image",
+            "it": "Allineamento immagine",
+            "ja": "画像アラインメント",
+            "pt-BR": "Alinhamento da imagem"
+          },
+          "options": [
+            {
+              "value": "top center",
+              "label": {
+                "de": "Oben Mitte",
+                "en": "Top center",
+                "es": "Superior al centro",
+                "fr": "En haut au centre",
+                "it": "In alto al centro",
+                "ja": "中央上",
+                "pt-BR": "Superior centro"
+              }
+            },
+            {
+              "value": "center center",
+              "label": {
+                "de": "Mitte",
+                "en": "Center",
+                "es": "Centrar",
+                "fr": "Centre",
+                "it": "Al centro",
+                "ja": "中央",
+                "pt-BR": "Centro"
+              }
+            },
+            {
+              "value": "bottom center",
+              "label": {
+                "de": "Unten mittig",
+                "en": "Bottom center",
+                "es": "Inferior al centro",
+                "fr": "En bas au centre",
+                "it": "In basso al centro",
+                "ja": "中央下",
+                "pt-BR": "Inferior centro"
+              }
+            }
+          ],
+          "default": "top center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Galerie",
+        "en": "Gallery",
+        "es": "Galería",
+        "fr": "Galerie",
+        "it": "Galleria",
+        "ja": "ギャラリー",
+        "pt-BR": "Galeria"
+      },
+      "category": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      },
+      "blocks": [
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "image_block"
+        },
+        {
+          "type": "image_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

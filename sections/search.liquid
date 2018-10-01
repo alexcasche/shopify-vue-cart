@@ -1,0 +1,154 @@
+<div class="page-width">
+  <div class="section-block section-block--padding">
+    {% if section.settings.title != blank %}
+      <div class="section-block__header text-center">
+        <h4 class="h1--mini section-block__title">{{ section.settings.title | escape }}</h4>
+      </div>
+    {% endif %}
+    <div class="grid">
+      <div class="grid__item medium-up--two-thirds medium-up--push-one-sixth">
+        <form action="/search" method="get" class="grid grid--half-gutters" role="search">
+          <div class="grid__item medium-up--three-quarters">
+            {% comment %}<input type="hidden" name="type" value="product">{% endcomment %}
+            <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" class="input--full">
+          </div>
+          <div class="grid__item medium-up--one-quarter">
+            <button type="submit" class="btn btn--narrow btn--full">{{ 'general.search.submit' | t }}</button>
+          </div>
+        </form>
+
+        {% if section.settings.links_type %}
+          {% for collection in collections %}
+            {% capture collection_tags %}{{ collection.tags | join: ',' }}{% endcapture %}
+            {% capture all_tags %}{% if all_tags %}{{ all_tags }},{% endif %}{{ collection_tags }}{% endcapture %}
+          {% endfor %}
+          <ul class="list--inline tag-list small--text-center">
+            <li class="tag-list__item">{{ section.settings.quick_link_label | escape }}</li>
+            {% assign all_tags = all_tags | split: ',' | uniq %}
+            {% for tag in all_tags limit: 5 %}
+              <li class="tag-list__item"><a href="/search?q={{ tag | handleize }}">{{ tag }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .tag-list {
+    margin-top: 10px;
+  }
+
+  .tag-list__item {
+    margin-right: 10px;
+  }
+{% endstylesheet %}
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Suchen",
+    "en": "Search",
+    "es": "Buscar",
+    "fr": "Rechercher",
+    "it": "Cerca",
+    "ja": "検索",
+    "pt-BR": "Pesquisa"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "Titre",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Suchen",
+        "en": "Search",
+        "es": "Buscar",
+        "fr": "Rechercher",
+        "it": "Cerca",
+        "ja": "検索",
+        "pt-BR": "Pesquisa"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "links_type",
+      "label": {
+        "de": "Quick-Links aktivieren",
+        "en": "Enable quick links",
+        "es": "Habilitar enlaces rápidos",
+        "fr": "Activer les liens rapides",
+        "it": "Abilita collegamenti rapidi",
+        "ja": "クイックリンクを有効にする",
+        "pt-BR": "Ativar links rápidos"
+      },
+      "info": {
+        "de": "Links werden automatisch aus Produkt-Tags generiert",
+        "en": "Links are automatically generated from product tags",
+        "es": "Los enlaces se generan automáticamente desde las etiquetas de productos.",
+        "fr": "Les liens sont générés automatiquement à partir des balises de produit",
+        "it": "I link vengono generati automaticamente dai tag di prodotto",
+        "ja": "リンクは商品タグから自動的に生成されます",
+        "pt-BR": "Links são gerados automaticamente a partir de tags de produtos"
+      },
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "quick_link_label",
+      "label": {
+        "de": "Quick-Links-Label",
+        "en": "Quick links label",
+        "es": "Etiqueta de enlaces rápidos",
+        "fr": "Étiquette de liens rapides",
+        "it": "Etichetta collegamenti rapidi",
+        "ja": "クイックリンクラベル",
+        "pt-BR": "Rótulo de links rápidos"
+      },
+      "default": {
+        "de": "Quick-Links:",
+        "en": "Quick links:",
+        "es": "Enlaces rápidos:",
+        "fr": "Liens rapides :",
+        "it": "Collegamenti rapidi:",
+        "ja": "クイックリンク:",
+        "pt-BR": "Links rápidos:"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Suchen",
+        "en": "Search",
+        "es": "Buscar",
+        "fr": "Rechercher",
+        "it": "Cerca",
+        "ja": "検索",
+        "pt-BR": "Pesquisa"
+      },
+      "category": {
+        "de": "Laden-Info",
+        "en": "Store information",
+        "es": "Información sobre tu tienda",
+        "fr": "Renseignements sur votre boutique",
+        "it": "Informazioni del negozio",
+        "ja": "ストア情報",
+        "pt-BR": "Informações sobre a loja"
+      }
+    }
+  ]
+}
+{% endschema %}

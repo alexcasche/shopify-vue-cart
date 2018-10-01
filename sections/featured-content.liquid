@@ -1,0 +1,238 @@
+<div class="page-width">
+  {% if section.settings.image != blank %}
+    {% assign img_url = section.settings.image | img_url: '1024x' | format: 'jpg' %}
+  {% endif %}
+
+  <div class="section-block">
+    {% if section.settings.image == blank %}
+      <div class="placeholder-background">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {% endif %}
+    <noscript>
+      <div class="featured-content" {% if section.settings.image != blank %}style="background-image: url({{ img_url }}); background-position: {{ section.settings.image_align }}"{% endif %}>
+        <div class="emphasized-title-wrapper">
+          {% if section.settings.link != blank %}
+            <a href="{{ section.settings.link }}" class="emphasized-title emphasized-title--link emphasized-title--large h1">
+              {{ section.settings.title | escape }}
+            </a>
+          {% else %}
+            <h4 class="emphasized-title emphasized-title--large h1">
+              {{ section.settings.title | escape }}
+            </h4>
+          {% endif %}
+        </div>
+        {% if section.settings.link != blank %}
+          <a href="{{ section.settings.link }}" class="emphasized-subtitle">
+            {{ section.settings.subtext | escape }}
+          </a>
+        {% else %}
+          <span class="emphasized-subtitle">
+            {{ section.settings.subtext | escape }}
+          </span>
+        {% endif %}
+      </div>
+    </noscript>
+    <div class="featured-content lazyload"
+      {% if section.settings.image != blank %}
+        style="background-position: {{ section.settings.image_align }};
+               background-image: url('{{ section.settings.image | img_url: '300x300' }});"
+      {% endif %}
+      data-bgset="{% include 'bgset', image: section.settings.image %}"
+      data-sizes="auto"
+      data-parent-fit="cover">
+      <div class="emphasized-title-wrapper">
+        {% if section.settings.link != blank %}
+          <a href="{{ section.settings.link }}" class="emphasized-title emphasized-title--link emphasized-title--large h1">
+            {{ section.settings.title | escape }}
+          </a>
+        {% else %}
+          <h4 class="emphasized-title emphasized-title--large h1">
+            {{ section.settings.title | escape }}
+          </h4>
+        {% endif %}
+      </div>
+      {% if section.settings.link != blank %}
+        <a href="{{ section.settings.link }}" class="emphasized-subtitle">
+          {{ section.settings.subtext | escape }}
+        </a>
+      {% else %}
+        <span class="emphasized-subtitle">
+          {{ section.settings.subtext | escape }}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Bild mit Textlink",
+    "en": "Image with text link",
+    "es": "Imagen con enlace",
+    "fr": "Image avec lien texte",
+    "it": "Immagine con text link",
+    "ja": "テキストリンク付き画像",
+    "pt-BR": "Imagem com link de texto"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "Titre",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Bild mit Textlink",
+        "en": "Image with text link",
+        "es": "Imagen con enlace",
+        "fr": "Image avec lien texte",
+        "it": "Immagine con text link",
+        "ja": "テキストリンク付き画像",
+        "pt-BR": "Imagem com link de texto"
+      }
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": {
+        "de": "Unter-Überschrift",
+        "en": "Subheading",
+        "es": "Subtítulo",
+        "fr": "Sous-titre",
+        "it": "Sottotitolo",
+        "ja": "小見出し",
+        "pt-BR": "Subtítulo"
+      },
+      "default": {
+        "de": "Jetzt shoppen",
+        "en": "Shop now",
+        "es": "Comprar ahora",
+        "fr": "Acheter maintenant",
+        "it": "Acquista ora",
+        "ja": "今すぐ購入",
+        "pt-BR": "Compre agora"
+      }
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": {
+        "de": "Link",
+        "en": "Link",
+        "es": "Enlace",
+        "fr": "Lien",
+        "it": "Link",
+        "ja": "リンク",
+        "pt-BR": "Link"
+      },
+      "info": {
+        "de": "Optional",
+        "en": "Optional",
+        "es": "Opcional",
+        "fr": "Facultatif",
+        "it": "Facoltativo",
+        "ja": "選択させる",
+        "pt-BR": "Opcional"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": {
+        "de": "Hintergrundbild",
+        "en": "Background image",
+        "es": "Imagen de fondo",
+        "fr": "Image de fond",
+        "it": "Immagine di sfondo",
+        "ja": "背景画像",
+        "pt-BR": "Imagem de fundo"
+      }
+    },
+    {
+      "type": "radio",
+      "id": "image_align",
+      "label": {
+        "de": "Fotoausrichtung",
+        "en": "Image alignment",
+        "es": "Alineación de imagen",
+        "fr": "Alignement de l'image",
+        "it": "Allineamento immagine",
+        "ja": "画像アラインメント",
+        "pt-BR": "Alinhamento da imagem"
+      },
+      "options": [
+        {
+          "value": "top center",
+          "label": {
+            "de": "Oben Mitte",
+            "en": "Top center",
+            "es": "Superior al centro",
+            "fr": "En haut au centre",
+            "it": "In alto al centro",
+            "ja": "中央上",
+            "pt-BR": "Superior centro"
+          }
+        },
+        {
+          "value": "center center",
+          "label": {
+            "de": "Mitte",
+            "en": "Center",
+            "es": "Centrar",
+            "fr": "Centre",
+            "it": "Al centro",
+            "ja": "中央",
+            "pt-BR": "Centro"
+          }
+        },
+        {
+          "value": "bottom center",
+          "label": {
+            "de": "Unten mittig",
+            "en": "Bottom center",
+            "es": "Inferior al centro",
+            "fr": "En bas au centre",
+            "it": "In basso al centro",
+            "ja": "中央下",
+            "pt-BR": "Inferior centro"
+          }
+        }
+      ],
+      "default": "top center"
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Bild mit Textlink",
+        "en": "Image with text link",
+        "es": "Imagen con enlace",
+        "fr": "Image avec lien texte",
+        "it": "Immagine con text link",
+        "ja": "テキストリンク付き画像",
+        "pt-BR": "Imagem com link de texto"
+      },
+      "category": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      }
+    }
+  ]
+}
+{% endschema %}

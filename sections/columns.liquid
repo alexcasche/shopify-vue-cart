@@ -1,0 +1,244 @@
+<div class="page-width">
+  <div class="section-block">
+    {% if section.settings.title != blank %}
+      <div class="section-block__header section-block__header--padded text-center">
+        <h4 class="h1--mini section-block__title">{{ section.settings.title | escape }}</h4>
+      </div>
+    {% endif %}
+
+    <div class="flex column-flex">
+      {% for block in section.blocks %}
+        {% if block.settings.image != blank %}
+          {% assign img_url = block.settings.image | img_url: '600x600' %}
+        {% endif %}
+        <div class="flex__item text-center" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <noscript>
+              <div class="column-flex__image" style="background-image: url({{ block.settings.image | img_url: '600x600' }}); background-position: {{ block.settings.image_align }};"></div>
+            </noscript>
+            <div class="column-flex__image lazyload"
+              style="background-position: {{ block.settings.image_align }}; background-image: url('{{ block.settings.image | img_url: '300x300' }});"
+              data-bgset="{% include 'bgset', image: block.settings.image %}"
+              data-sizes="auto"
+              data-parent-fit="cover">
+            </div>
+          {% else %}
+            <div class="column-flex__image">
+              <div class="placeholder-background">
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            </div>
+          {% endif %}
+          <div class="column-flex__content">
+            <p class="h5">{{ block.settings.title | escape }}</p>
+            <div class="rte-setting">{{ block.settings.text }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Textspalten mit Fotos",
+    "en": "Text columns with images",
+    "es": "Col. de texto con imagen",
+    "fr": "Texte avec images",
+    "it": "Colonne di testo con foto",
+    "ja": "画像付きテキスト列",
+    "pt-BR": "Texto com imagens"
+  },
+  "class": "index-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "Titre",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Textspalten mit Fotos",
+        "en": "Text columns with images",
+        "es": "Col. de texto con imagen",
+        "fr": "Texte avec images",
+        "it": "Colonne di testo con foto",
+        "ja": "画像付きテキスト列",
+        "pt-BR": "Colunas de texto com imagens"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": {
+            "de": "Titel",
+            "en": "Heading",
+            "es": "Título",
+            "fr": "Titre",
+            "it": "Heading",
+            "ja": "見出し",
+            "pt-BR": "Título"
+          },
+          "default": {
+            "de": "Titel oder Text hinzufügen",
+            "en": "Add a title or tagline",
+            "es": "Agregar un título o eslogan",
+            "fr": "Ajouter un titre ou un slogan",
+            "it": "Aggiungi un titolo o una tagline",
+            "ja": "タイトルまたはタグラインを追加する",
+            "pt-BR": "Adicione um título ou slogan"
+          }
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": {
+            "de": "Text",
+            "en": "Text",
+            "es": "Texto",
+            "fr": "Texte",
+            "it": "Testo",
+            "ja": "テキスト",
+            "pt-BR": "Texto"
+          },
+          "default": {
+            "de": "<p>Blogposts, Produkte oder Promotions mit Ihren Kunden teilen. Nutzen Sie diesen Text, um Produkte zu beschreiben, Details zu Verfügbarkeit und Stil mitzuteilen oder als Ort, wo Reviews oder FAQs stehen.</p>",
+            "en": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "es": "<p>Comparte entradas de blogs, productos o promociones con tus clientes. Usa este texto para describir productos, compartir detalles sobre la disponibilidad y el estilo, o como un espacio para mostrar reseñas recientes o preguntas frecuentes.</p>",
+            "fr": "<p>Partagez des articles de blog, des produits ou des promotions avec vos clients. Utilisez ce texte pour décrire vos produits, partager des détails sur leur disponibilité ou leur style, ou encore pour afficher des FAQ et avis récents.</p>",
+            "it": "<p>Condividi articoli del blog, prodotti o promozioni con i tuoi clienti. Utilizza questo spazio per descrivere i prodotti, condividendo dettagli sulla loro disponibilità e sul loro stile, oppure per mostrare recensioni recenti o domande frequenti.</p>",
+            "ja": "<p>ブログ記事、商品、またはプロモーションをお客様に伝えます。このテキストで商品について説明し、公開状況やスタイルの詳細を共有するか、最近のレビューやFAQを表示するスペースとして使用します。</p>",
+            "pt-BR": "<p>Compartilhe postagens de blogs, produtos ou promoções com seus clientes. Use este texto para descrever produtos, compartilhar detalhes sobre disponibilidade e estilo ou como um espaço para exibir comentários recentes ou perguntas frequentes.</p>"
+          }
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "de": "Foto",
+            "en": "Image",
+            "es": "Imagen",
+            "fr": "Image",
+            "it": "Immagine",
+            "ja": "画像",
+            "pt-BR": "Imagem"
+          }
+        },
+        {
+          "type": "radio",
+          "id": "image_align",
+          "label": {
+            "de": "Fotoausrichtung",
+            "en": "Image alignment",
+            "es": "Alineación de imagen",
+            "fr": "Alignement de l'image",
+            "it": "Allineamento immagine",
+            "ja": "画像アラインメント",
+            "pt-BR": "Alinhamento da imagem"
+          },
+          "options": [
+            {
+              "value": "top center",
+              "label": {
+                "de": "Oben Mitte",
+                "en": "Top center",
+                "es": "Superior al centro",
+                "fr": "En haut au centre",
+                "it": "In alto al centro",
+                "ja": "中央上",
+                "pt-BR": "Superior centro"
+              }
+            },
+            {
+              "value": "center center",
+              "label": {
+                "de": "Mitte",
+                "en": "Center",
+                "es": "Centrar",
+                "fr": "Au centre",
+                "it": "Al centro",
+                "ja": "中央",
+                "pt-BR": "Centro"
+              }
+            },
+            {
+              "value": "bottom center",
+              "label": {
+                "de": "Unten mittig",
+                "en": "Bottom center",
+                "es": "Inferior al centro",
+                "fr": "En bas au centre",
+                "it": "In basso al centro",
+                "ja": "中央下",
+                "pt-BR": "Inferior centro"
+              }
+            }
+          ],
+          "default": "top center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Textspalten mit Fotos",
+        "en": "Text columns with images",
+        "es": "Col. de texto con imagen",
+        "fr": "Texte avec images",
+        "it": "Colonne di testo con foto",
+        "ja": "画像付きテキスト列",
+        "pt-BR": "Texto com imagens"
+      },
+      "category": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "blocks": [
+        {
+          "type": "text_block"
+        },
+        {
+          "type": "text_block"
+        },
+        {
+          "type": "text_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

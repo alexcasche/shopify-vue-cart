@@ -1,0 +1,164 @@
+<div class="page-width">
+  <div class="section-block section-block--padding grid grid--no-gutters">
+    <div class="grid__item{% unless section.settings.home_page_full_width %} medium-up--two-thirds medium-up--push-one-sixth{% endunless %}">
+      {% if section.settings.section_title != blank %}
+        <h2 class="rich-text__heading--{{ section.settings.text_size }} text-center">{{ section.settings.section_title | escape }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="rte text-center rich-text__text--{{ section.settings.text_size }}">
+          {{ section.settings.text }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Rich text",
+    "en": "Rich text",
+    "es": "Texto enriquecido",
+    "fr": "Texte enrichi",
+    "it": "Rich text",
+    "ja": "リッチテキスト",
+    "pt-BR": "Rich text"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "home_page_full_width",
+      "label": {
+        "de": "Breitbild-Display",
+        "en": "Wide display",
+        "es": "Pantalla ancha",
+        "fr": "Affichage large",
+        "it": "Visualizzazione ampia",
+        "ja": "ワイドディスプレイ",
+        "pt-BR": "Exibição ampla"
+      }
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "Titre",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Reden Sie über Ihre Marke",
+        "en": "Talk about your brand",
+        "es": "Habla de tu marca",
+        "fr": "Parlez de votre marque",
+        "it": "Parla del tuo brand",
+        "ja": "あなたのブランドについて語る",
+        "pt-BR": "Fale sobre a sua marca"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "default": {
+        "de": "<p>Nutzen Sie diesen Text, um Infos über Ihre Marke mitzuteilen. Beschreiben Sie ein Produkt, kündigen Sie etwas an oder heißen Sie Kunden willkommen.</p>",
+        "en": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "es": "<p>Usa este texto para compartir información sobre tu marca con tus clientes. Describe un producto, comparte anuncios o recibe clientes en tu tienda.</p>",
+        "fr": "<p>Utilisez ce texte pour partager des informations sur votre marque. Décrivez un produit, partagez des annonces, ou souhaitez la bienvenue à vos clients.</p>",
+        "it": "<p>Utilizza questo testo per condividere le informazioni sul tuo brand con i tuoi clienti. Descrivi un prodotto, condividi gli annunci o dai il benvenuto ai clienti nel tuo negozio.</p>",
+        "ja": "<p>このテキストを使用して、あなたのブランドに関する情報をお客様と共有します。商品を説明したり、告知の共有をしたり、あるいはあなたのストアのお客様を歓迎します。</p>",
+        "pt-BR": "<p>Use este texto para compartilhar informações sobre sua marca com seus clientes. Descreva um produto, compartilhe anúncios ou receba os clientes em sua loja.</p>"
+      }
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": {
+        "de": "Größe",
+        "en": "Size",
+        "es": "Tamaño",
+        "fr": "Taille",
+        "it": "Misura",
+        "ja": "サイズ",
+        "pt-BR": "Tamanho"
+      },
+      "default": "medium",
+      "options": [
+        {
+          "label": {
+            "de": "Klein",
+            "en": "Small",
+            "es": "Pequeño",
+            "fr": "Petite",
+            "it": "Piccolo",
+            "ja": "小",
+            "pt-BR": "Pequeno"
+          },
+          "value": "small"
+        },
+        {
+          "label": {
+            "de": "Mittel",
+            "en": "Medium",
+            "es": "Mediano",
+            "fr": "Moyenne",
+            "it": "Medio",
+            "ja": "中",
+            "pt-BR": "Médio"
+          },
+          "value": "medium"
+        },
+        {
+          "label": {
+            "de": "Groß",
+            "en": "Large",
+            "es": "Grande",
+            "fr": "Grande",
+            "it": "Grande",
+            "ja": "大",
+            "pt-BR": "Grande"
+          },
+          "value": "large"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "de": "Rich text",
+        "en": "Rich text",
+        "es": "Texto enriquecido",
+        "fr": "Texte enrichi",
+        "it": "Rich text",
+        "ja": "リッチテキスト",
+        "pt-BR": "Rich text"
+      },
+      "category": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      }
+    }
+  ]
+}
+{% endschema %}

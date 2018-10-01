@@ -1,0 +1,16 @@
+{
+  "name": "dev-alex",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel": "^6.23.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1"
+  }
+}

@@ -1,0 +1,45 @@
+{%- assign collection = collections[section.settings.collection] -%}
+{%- if collection != blank -%}
+  {% if collection.products_count != 0 %}
+    <hr>
+    <h3 class="h4">{{ 'layout.sidebar.featured_products' | t }}</h3>
+    <div class="grid grid--no-gutters grid--uniform">
+      {% for product in collection.products limit: 4 %}
+        <div class="grid__item medium-up--one-quarter small--one-half">
+          {% include 'product-card', product: product %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{%- endif -%}
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Vorgestelltes Produkt",
+    "en": "Featured products",
+    "es": "Productos destacados",
+    "fr": "Produits en vedette",
+    "it": "Prodotti in primo piano",
+    "ja": "おすすめ商品",
+    "pt-BR": "Produtos em destaque"
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": {
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fr": "Collection",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "pt-BR": "Coleção"
+      }
+    }
+  ]
+}
+{% endschema %}
