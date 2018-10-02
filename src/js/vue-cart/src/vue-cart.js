@@ -22,12 +22,3 @@ new Vue({
 	components: { App },
 	template: '<App />'
 });
-
-// if (document.getElementById('vueCartTrigger')) {
-// 	new Vue({
-// 		el: '#vueCartTrigger',
-// 		store: sharedStore,
-// 		components: { CartTrigger },
-// 		template: '<CartTrigger />'
-// 	});
-// }
