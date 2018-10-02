@@ -1,5 +1,5 @@
 <template>
-    <div v-if="cartCount > 0" class="c-vueCartContent">
+    <div v-if="cartTotal > 0" class="c-vueCartContent">
         <CartProgress />
         <div v-for="(item, index) in shoppingCart.items" 
             :key="index" 
@@ -12,7 +12,7 @@
                 Subtotal
             </p>
             <span class="c-vueCart__subtotal c-vueCart__subtotal--money">
-                {{ shoppingCart.total | toUSD }}
+                {{ cartTotal | toUSD }}
             </span>
         </div>
         <a class="c-vueCart__checkout" href="/checkout">Checkout</a>
@@ -36,7 +36,7 @@ export default {
 		CartItem
 	},
 	computed: {
-		...mapGetters(['shoppingCart', 'cartCount'])
+		...mapGetters(['shoppingCart', 'cartTotal'])
 	},
 	methods: {
 		...mapActions(['initCart'])

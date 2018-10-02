@@ -4395,6 +4395,10 @@ pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
+portal-vue@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/portal-vue/-/portal-vue-1.4.0.tgz#f689621783e309a64daa5af4603c649d0eddc4a1"
+
 portfinder@0.4.x:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-0.4.0.tgz#a3ffadffafe4fb98e0601a85eda27c27ce84ca1e"

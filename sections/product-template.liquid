@@ -172,8 +172,9 @@
             <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
             <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input product-form__quantity">
           </div>
-          <div class="product-form__item product-form__item--submit">
-            <button type="submit"
+          <div id="vueCartAdd"></div>
+          {% comment %} <div class="product-form__item product-form__item--submit"> {% endcomment %}
+            <!--<button type="submit"
               name="add"
               id="AddToCart-{{ section.id }}"
               class="btn btn--full product-form__cart-submit{% unless current_variant.available %} btn--sold-out{% endunless %}{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"
@@ -185,11 +186,11 @@
                   {{ 'products.product.add_to_cart' | t }}
                 {% endunless %}
               </span>
-            </button>
-            {% if section.settings.enable_payment_button %}
+            </button>-->
+            {% comment %} {% if section.settings.enable_payment_button %}
               {{ form | payment_button }}
-            {% endif %}
-          </div>
+            {% endif %} {% endcomment %}
+          {% comment %} </div> {% endcomment %}
         {% endform %}
 
         <hr>

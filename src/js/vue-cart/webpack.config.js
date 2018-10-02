@@ -1,13 +1,13 @@
-const {resolve} = require('path')
-const {getIfUtils} = require('webpack-config-utils')
+const { resolve } = require('path')
+const { getIfUtils } = require('webpack-config-utils')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = env => {
-    const {ifProd, ifNotProd} = getIfUtils(env)
+    const { ifProd, ifNotProd } = getIfUtils(env)
     const config = {
         context: resolve('src'),
         entry: {
-            'vue-cart': './vue-cart.js',
+            'vue-cart': './vue-cart.js'
         },
         output: {
             filename: '[name].js',
