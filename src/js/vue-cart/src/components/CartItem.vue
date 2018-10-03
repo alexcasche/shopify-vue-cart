@@ -9,7 +9,7 @@
                     </span>
                 </p>
                 <button class="c-vueCartItem__clear"
-                    @click="updateQty({ item, action: 'clear' })"
+                    @click="updateItem({ item, action: 'clear' })"
                 >
                     <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 32 32"><path fill="#444" d="M25.313 8.55l-1.862-1.862-7.45 7.45-7.45-7.45L6.689 8.55l7.45 7.45-7.45 7.45 1.862 1.862 7.45-7.45 7.45 7.45 1.862-1.862-7.45-7.45z"/></svg>
                 </button>
@@ -18,14 +18,14 @@
                 <img class="c-vueCartItem__image" :src="item.image" />
                 <div class="c-vueCartItem__controls">
                     <button class="c-vueCartItem__control c-vueCartItem__control--add"
-                        @click="updateQty({ item, action: 'decrease' })" 
+                        @click="updateItem({ item, action: 'decrease' })" 
                     >
                         -
                     </button>
                     <span class="c-vueCartItem__quantity">
                         {{ item.quantity }}
                     </span>
-                    <button @click="updateQty({ item, action: 'increase' })" class="c-vueCartItem__control c-vueCartItem__control--remove">
+                    <button @click="updateItem({ item, action: 'increase' })" class="c-vueCartItem__control c-vueCartItem__control--remove">
                         +
                     </button>
                 </div>
@@ -47,7 +47,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['updateQty'])
+		...mapActions(['updateItem'])
 	}
 };
 </script>

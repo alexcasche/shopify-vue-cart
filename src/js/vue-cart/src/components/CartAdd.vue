@@ -1,5 +1,5 @@
 <template>
-    <button type="button" class="c-vueCartAdd" @click="addToCart">
+    <button type="button" class="c-vueCartAdd" @click="addItem(getValue())">
         Add to Cart
     </button>
 </template>
@@ -16,14 +16,14 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(['addQty']),
-		addToCart() {
+		...mapActions(['addItem']),
+		getValue() {
 			const quantity = document.getElementById('Quantity').value;
 			const url = window.location.href;
 			const id = url.includes('variant')
 				? url.split('variant=')[1]
 				: this.defaultVariant;
-			this.addQty({ quantity, id });
+			return { id, quantity };
 		}
 	},
 	mounted() {

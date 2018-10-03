@@ -1,5 +1,5 @@
 <template>
-    <button class="c-vueCartTrigger" @click="toggleCart">
+    <button class="c-vueCartTrigger" @click="toggleCart('open')">
         Open Cart
     </button>
 </template>

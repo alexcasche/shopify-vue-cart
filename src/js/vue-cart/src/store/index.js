@@ -34,29 +34,23 @@ export default new Vuex.Store({
 		initCart(state, payload) {
 			return (state.shoppingCart = payload);
 		},
-		updateQty(state, payload) {
-			const { id, quantity, adjustCart } = payload;
-			(state.shoppingCart.count += adjustCart.count),
-				(state.shoppingCart.total += adjustCart.total),
-				(state.shoppingCart.items[id].quantity = quantity);
+		updateCartItem(state, payload) {
+			const { id, quantity } = payload;
+			state.shoppingCart.items[id].quantity = quantity;
 			if (quantity < 1) {
 				delete state.shoppingCart.items[id];
 			}
 			return state;
 		},
-		addQty(state, payload) {
+		addCartItem(state, payload) {
 			state.shoppingCart.items = {
 				...state.shoppingCart.items,
 				...payload
 			};
 			return state;
 		},
-		toggleCart(state) {
-			state.isOpen = !state.isOpen;
-			return state;
-		},
-		openCart(state) {
-			state.isOpen = true;
+		toggleCart(state, payload) {
+			state.isOpen = payload === 'open' ? true : false;
 			return state;
 		},
 		toggleFetching(state) {
@@ -75,33 +69,28 @@ export default new Vuex.Store({
 					return error.message;
 				});
 		},
-		updateQty: ({ commit, state }, payload) => {
+		updateItem: ({ commit, state }, payload) => {
 			if (state.isFetching) {
 				return;
 			} else {
 				commit('toggleFetching');
 				const { item, action } = payload;
-				const { id, quantity, price } = item;
+				const { id, quantity } = item;
 				const newQty =
 					action === 'increase'
 						? quantity + 1
 						: action === 'decrease'
 							? quantity - 1
 							: 0;
-				const adjustCart = {
-					count: newQty - quantity,
-					total: (newQty - quantity) * price
-				};
 				axios
 					.post('/cart/change.js', {
 						id: id.toString(),
 						quantity: newQty.toString()
 					})
 					.then(() => {
-						commit('updateQty', {
+						commit('updateCartItem', {
 							id,
-							quantity: newQty,
-							adjustCart
+							quantity: newQty
 						});
 						commit('toggleFetching');
 					})
@@ -111,24 +100,20 @@ export default new Vuex.Store({
 					});
 			}
 		},
-		addQty: ({ commit, state }, payload) => {
+		addItem: ({ commit, state }, payload) => {
 			if (state.isFetching) {
 				return;
 			} else {
 				commit('toggleFetching');
-				const { quantity, id } = payload;
 				axios
-					.post('/cart/add.js', {
-						id,
-						quantity
-					})
+					.post('/cart/add.js', payload)
 					.then(response => {
 						commit(
-							'addQty',
+							'addCartItem',
 							normalizeShopifyProduct(response.data)
 						);
 						commit('toggleFetching');
-						commit('openCart');
+						commit('toggleCart', 'open');
 					})
 					.catch(error => {
 						commit('toggleFetching');
